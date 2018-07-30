@@ -13,6 +13,12 @@ public class StarredRepository {
     public String htmlUrl;
     @Json(name = "description")
     public String description;
+    @Json(name = "forks_count")
+    public int forksCount;
+    @Json(name = "stargazers_count")
+    public int stargazersCount;
+    @Json(name = "watchers_count")
+    public int watchersCount;
     @Json(name = "topics")
     public String[] topics;
 }

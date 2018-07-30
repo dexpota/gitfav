@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,15 +45,18 @@ public class StarredRepositoriesAdapter extends PagedListAdapter<StarredReposito
         TextView projectName;
         @BindView(R.id.full_project_name)
         TextView fullProjectName;
+        @BindView(R.id.description)
+        TextView description;
 
         public StarredRepositoryHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(StarredRepository starredRepository) {
+        void bind(@NonNull StarredRepository starredRepository) {
             projectName.setText(starredRepository.name);
             fullProjectName.setText(starredRepository.fullName);
+            description.setText(starredRepository.description);
         }
     }
 }
