@@ -1,5 +1,7 @@
 package me.destro.android.gitfav.adapters;
 
+import android.arch.paging.PagedList;
+import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,12 +16,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.destro.android.gitfav.R;
 import me.destro.android.gitfav.github.model.StarredRepository;
+import me.destro.android.gitfav.paging.StarredRepositoryDiffCallback;
 
-public class StarredRepositoriesAdapter extends RecyclerView.Adapter<StarredRepositoriesAdapter.StarredRepositoryHolder>{
-    List<StarredRepository> mRepositories;
+public class StarredRepositoriesAdapter extends PagedListAdapter<StarredRepository, StarredRepositoriesAdapter.StarredRepositoryHolder> {
 
-    public StarredRepositoriesAdapter(@NonNull List<StarredRepository> repositories) {
-        mRepositories = repositories;
+    public StarredRepositoriesAdapter() {
+        super(new StarredRepositoryDiffCallback());
     }
 
     @NonNull
@@ -31,12 +33,9 @@ public class StarredRepositoriesAdapter extends RecyclerView.Adapter<StarredRepo
 
     @Override
     public void onBindViewHolder(@NonNull StarredRepositoryHolder viewHolder, int i) {
-        viewHolder.bind(mRepositories.get(i));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mRepositories != null ? mRepositories.size() : 0;
+        StarredRepository item = getItem(i);
+        if (item != null)
+            viewHolder.bind(item);
     }
 
     class StarredRepositoryHolder extends RecyclerView.ViewHolder {

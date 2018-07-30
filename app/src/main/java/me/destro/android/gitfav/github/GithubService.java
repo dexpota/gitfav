@@ -7,11 +7,12 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface GithubService {
 
     @GET("users/{user}/starred")
     @Headers("Accept: application/vnd.github.mercy-preview+json")
-    Call<List<StarredRepository>> listStarredRepository(@Path("user") String user);
+    Call<List<StarredRepository>> listStarredRepository(@Path("user") String user, @Query("page") int page);
 
 }
