@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_github_padding">8dp</dimen>
+    <dimen name="item_github_primary_size">24sp</dimen>
+    <dimen name="item_github_secondary_size">16sp</dimen>
+</resources>
