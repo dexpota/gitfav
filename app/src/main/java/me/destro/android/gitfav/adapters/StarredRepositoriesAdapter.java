@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.squareup.moshi.Json;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -47,6 +49,12 @@ public class StarredRepositoriesAdapter extends PagedListAdapter<StarredReposito
         TextView fullProjectName;
         @BindView(R.id.description)
         TextView description;
+        @BindView(R.id.forks_count)
+        TextView forksCount;
+        @BindView(R.id.stargazers_count)
+        TextView stargazersCount;
+        @BindView(R.id.watchers_count)
+        TextView watchersCount;
 
         public StarredRepositoryHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,6 +65,10 @@ public class StarredRepositoriesAdapter extends PagedListAdapter<StarredReposito
             projectName.setText(starredRepository.name);
             fullProjectName.setText(starredRepository.fullName);
             description.setText(starredRepository.description);
+
+            forksCount.setText(String.valueOf(starredRepository.forksCount));
+            stargazersCount.setText(String.valueOf(starredRepository.stargazersCount));
+            watchersCount.setText(String.valueOf(starredRepository.watchersCount));
         }
     }
 }
