@@ -15,6 +15,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import androidx.navigation.Navigation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -28,27 +29,14 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.starred_repositories)
-    RecyclerView rvStarredRepositories;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    }
 
-        StarredRepositoriesAdapter mAdapter = new StarredRepositoriesAdapter();
-        rvStarredRepositories.setAdapter(mAdapter);
-        rvStarredRepositories.setLayoutManager(new LinearLayoutManager(this));
-
-        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.mStarredRepository.observe(this, new Observer<PagedList<StarredRepository>>() {
-            @Override
-            public void onChanged(@Nullable PagedList<StarredRepository> starredRepositories) {
-                mAdapter.submitList(starredRepositories);
-            }
-        });
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        return Navigation.findNavController(this, R.id.navigation_host).navigateUp();
     }
 }
