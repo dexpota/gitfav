@@ -18,9 +18,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StarredRepositoryDataSource extends PageKeyedDataSource<String, StarredRepository> {
+
+    private String username;
+
+    public StarredRepositoryDataSource(String username) {
+        this.username = username;
+    }
+
+
     @Override
     public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<String, StarredRepository> callback) {
-        Call<List<StarredRepository>> starredCall = GitfavApplication.githubService.listStarredRepository("dexpota", 0);
+        Call<List<StarredRepository>> starredCall = GitfavApplication.githubService.listStarredRepository(this.username, 0);
         starredCall.enqueue(new Callback<List<StarredRepository>>() {
             @Override
             public void onResponse(Call<List<StarredRepository>> call, Response<List<StarredRepository>> response) {
@@ -66,7 +74,7 @@ public class StarredRepositoryDataSource extends PageKeyedDataSource<String, Sta
             next = Integer.valueOf(m.group(1));
         }
 
-        Call<List<StarredRepository>> starredCall = GitfavApplication.githubService.listStarredRepository("dexpota", next);
+        Call<List<StarredRepository>> starredCall = GitfavApplication.githubService.listStarredRepository(this.username, next);
 
         starredCall.enqueue(new Callback<List<StarredRepository>>() {
             @Override

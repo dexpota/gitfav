@@ -38,12 +38,14 @@ public class StarredRepositoriesFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_starred_repositories, container, false);
         ButterKnife.bind(this, root);
 
+        String username = StarredRepositoriesFragmentArgs.fromBundle(getArguments()).getUsername();
+
         StarredRepositoriesAdapter mAdapter = new StarredRepositoriesAdapter();
         rvStarredRepositories.setAdapter(mAdapter);
         rvStarredRepositories.setLayoutManager(new LinearLayoutManager(getContext()));
 
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        viewModel.mStarredRepository.observe(this, new Observer<PagedList<StarredRepository>>() {
+        viewModel.getStarredRepositories(username).observe(this, new Observer<PagedList<StarredRepository>>() {
             @Override
             public void onChanged(@Nullable PagedList<StarredRepository> starredRepositories) {
                 mAdapter.submitList(starredRepositories);
