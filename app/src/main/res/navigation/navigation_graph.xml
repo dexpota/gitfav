@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/starredRepositoriesFragment"
-        android:name="me.destro.android.gitfav.StarredRepositoriesFragment"
+        android:name="me.destro.android.gitfav.features.listing.StarredRepositoriesFragment"
         android:label="fragment_starred_repositories"
         tools:layout="@layout/fragment_starred_repositories">
         <argument android:name="username" app:argType="string"/>
     </fragment>
     <fragment
         android:id="@+id/githubHandleFragment"
-        android:name="me.destro.android.gitfav.GithubHandleFragment"
+        android:name="me.destro.android.gitfav.features.login.GithubHandleFragment"
         android:label="fragment_github_handle"
         tools:layout="@layout/fragment_github_handle" >
         <action

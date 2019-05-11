@@ -1,4 +1,4 @@
-package me.destro.android.gitfav;
+package me.destro.android.gitfav.features.login;
 
 
 import android.app.Activity;
@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.annotations.NonNull;
+import me.destro.android.gitfav.R;
 
 
 public class GithubHandleFragment extends Fragment {

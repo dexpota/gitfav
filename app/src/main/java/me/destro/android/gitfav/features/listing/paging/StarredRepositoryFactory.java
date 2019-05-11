@@ -1,4 +1,4 @@
-package me.destro.android.gitfav.paging;
+package me.destro.android.gitfav.features.listing.paging;
 
 import androidx.paging.DataSource;
 

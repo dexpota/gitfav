@@ -1,4 +1,4 @@
-package me.destro.android.gitfav.adapters;
+package me.destro.android.gitfav.features.listing.adapters;
 
 import androidx.paging.PagedListAdapter;
 import androidx.annotation.NonNull;
@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.destro.android.gitfav.R;
 import me.destro.android.libraries.github.model.StarredRepository;
-import me.destro.android.gitfav.paging.StarredRepositoryDiffCallback;
+import me.destro.android.gitfav.features.listing.paging.StarredRepositoryDiffCallback;
 
 public class StarredRepositoriesAdapter extends PagedListAdapter<StarredRepository, StarredRepositoriesAdapter.StarredRepositoryHolder> {
 

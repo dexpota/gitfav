@@ -1,4 +1,4 @@
-package me.destro.android.gitfav;
+package me.destro.android.gitfav.features.listing;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.destro.android.gitfav.adapters.StarredRepositoriesAdapter;
-import me.destro.android.gitfav.viewmodels.MainViewModel;
+import me.destro.android.gitfav.R;
+import me.destro.android.gitfav.features.listing.adapters.StarredRepositoriesAdapter;
 import me.destro.android.libraries.github.model.StarredRepository;
 
 
@@ -42,7 +42,7 @@ public class StarredRepositoriesFragment extends Fragment {
         rvStarredRepositories.setAdapter(mAdapter);
         rvStarredRepositories.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        StarredRepositoriesViewModel viewModel = ViewModelProviders.of(this).get(StarredRepositoriesViewModel.class);
         viewModel.getStarredRepositories(username).observe(this, new Observer<PagedList<StarredRepository>>() {
             @Override
             public void onChanged(@Nullable PagedList<StarredRepository> starredRepositories) {
