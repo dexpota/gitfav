@@ -1,6 +1,6 @@
 package me.destro.android.gitfav.paging;
 
-import android.support.v7.util.DiffUtil;
+import androidx.recyclerview.widget.DiffUtil;
 
 import me.destro.android.gitfav.github.model.StarredRepository;
 

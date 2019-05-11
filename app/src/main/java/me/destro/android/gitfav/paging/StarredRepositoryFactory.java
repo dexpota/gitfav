@@ -1,6 +1,6 @@
 package me.destro.android.gitfav.paging;
 
-import android.arch.paging.DataSource;
+import androidx.paging.DataSource;
 
 import me.destro.android.gitfav.github.model.StarredRepository;
 
