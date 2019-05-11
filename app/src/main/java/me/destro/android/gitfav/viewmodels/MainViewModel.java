@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
-import me.destro.android.gitfav.github.model.StarredRepository;
+import me.destro.android.libraries.github.model.StarredRepository;
 import me.destro.android.gitfav.paging.StarredRepositoryFactory;
 
 public class MainViewModel extends ViewModel {

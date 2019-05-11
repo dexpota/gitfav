@@ -1,8 +1,8 @@
-package me.destro.android.gitfav.github;
+package me.destro.android.libraries.github;
 
 import java.util.List;
 
-import me.destro.android.gitfav.github.model.StarredRepository;
+import me.destro.android.libraries.github.model.StarredRepository;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;

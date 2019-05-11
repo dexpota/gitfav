@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.squareup.moshi.Moshi;
 
-import me.destro.android.gitfav.github.GithubService;
+import me.destro.android.libraries.github.GithubService;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 

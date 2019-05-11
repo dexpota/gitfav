@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.destro.android.gitfav.adapters.StarredRepositoriesAdapter;
-import me.destro.android.gitfav.github.model.StarredRepository;
 import me.destro.android.gitfav.viewmodels.MainViewModel;
+import me.destro.android.libraries.github.model.StarredRepository;
 
 
 public class StarredRepositoriesFragment extends Fragment {

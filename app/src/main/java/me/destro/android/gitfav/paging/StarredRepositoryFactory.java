@@ -2,7 +2,7 @@ package me.destro.android.gitfav.paging;
 
 import androidx.paging.DataSource;
 
-import me.destro.android.gitfav.github.model.StarredRepository;
+import me.destro.android.libraries.github.model.StarredRepository;
 
 public class StarredRepositoryFactory extends DataSource.Factory<String, StarredRepository>{
 

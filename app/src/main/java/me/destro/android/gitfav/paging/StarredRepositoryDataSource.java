@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 import me.destro.android.gitfav.GitfavApplication;
 import me.destro.android.gitfav.MainActivity;
-import me.destro.android.gitfav.github.model.StarredRepository;
-import me.destro.android.gitfav.github.utilities.PageLinks;
+import me.destro.android.libraries.github.model.StarredRepository;
+import me.destro.android.libraries.github.utilities.PageLinks;
 import me.destro.android.gitfav.utilities.Algorithms;
 import retrofit2.Call;
 import retrofit2.Callback;

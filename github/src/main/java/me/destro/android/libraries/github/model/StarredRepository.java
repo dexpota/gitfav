@@ -1,4 +1,4 @@
-package me.destro.android.gitfav.github.model;
+package me.destro.android.libraries.github.model;
 
 import com.squareup.moshi.Json;
 
