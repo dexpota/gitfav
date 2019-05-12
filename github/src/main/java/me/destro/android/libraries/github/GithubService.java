@@ -1,6 +1,7 @@
 package me.destro.android.libraries.github;
 
 import java.util.List;
+import java.util.Map;
 
 import me.destro.android.libraries.github.model.StarredRepository;
 import retrofit2.Call;
@@ -15,4 +16,7 @@ public interface GithubService {
     @Headers("Accept: application/vnd.github.mercy-preview+json")
     Call<List<StarredRepository>> listStarredRepository(@Path("user") String user, @Query("page") int page);
 
+    @GET("/repos/:owner/:repo/languages")
+    @Headers("Accept: application/vnd.github.mercy-preview+json")
+    Call<Map<String, Integer>> listRepositoryLanguages(@Path("user") String user, @Path("repo") String repository);
 }
