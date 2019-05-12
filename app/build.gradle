@@ -44,9 +44,7 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.1.0-alpha06'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.4.0'
-    implementation 'com.squareup.moshi:moshi:1.6.0'
+    implementation "io.reactivex.rxjava2:rxjava:2.2.8"
 
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'

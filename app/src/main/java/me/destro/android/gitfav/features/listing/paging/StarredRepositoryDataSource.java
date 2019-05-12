@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.reactivex.Single;
 import me.destro.android.gitfav.GitfavApplication;
 import me.destro.android.gitfav.MainActivity;
 import me.destro.android.libraries.github.model.StarredRepository;
@@ -28,33 +29,27 @@ public class StarredRepositoryDataSource extends PageKeyedDataSource<String, Sta
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<String, StarredRepository> callback) {
-        Call<List<StarredRepository>> starredCall = GitfavApplication.githubService.listStarredRepository(this.username, 0);
-        starredCall.enqueue(new Callback<List<StarredRepository>>() {
-            @Override
-            public void onResponse(Call<List<StarredRepository>> call, Response<List<StarredRepository>> response) {
-                if(response.isSuccessful()) {
-                    List<StarredRepository> starredRepositories = response.body();
+        Single<Response<List<StarredRepository>>> starredCall = GitfavApplication.githubService.listStarredRepository(this.username, 0);
 
-                    Log.d(MainActivity.class.getName(), response.headers().get("Link"));
+        // TODO handling this disposable
+        starredCall.subscribe((Response<List<StarredRepository>> response) -> {
+            List<StarredRepository> starredRepositories = response.body();
 
-                    for (StarredRepository starredRepository : starredRepositories) {
-                        Log.d(MainActivity.class.getName(), starredRepository.name);
-                        Log.d(MainActivity.class.getName(), starredRepository.fullName);
+            Log.d(MainActivity.class.getName(), response.headers().get("Link"));
 
-                        Algorithms.Consumer<String> tConsumer = topic -> Log.d(MainActivity.class.getName(), "topic: " + topic);
-                        Algorithms.foreach(starredRepository.topics, tConsumer);
-                    }
+            for (StarredRepository starredRepository : starredRepositories) {
+                Log.d(MainActivity.class.getName(), starredRepository.name);
+                Log.d(MainActivity.class.getName(), starredRepository.fullName);
 
-                    PageLinks pageLinks = new PageLinks(response.headers());
-
-                    callback.onResult(starredRepositories, pageLinks.getPrev(), pageLinks.getNext());
-                }
+                Algorithms.Consumer<String> tConsumer = topic -> Log.d(MainActivity.class.getName(), "topic: " + topic);
+                Algorithms.foreach(starredRepository.topics, tConsumer);
             }
 
-            @Override
-            public void onFailure(Call<List<StarredRepository>> call, Throwable t) {
+            PageLinks pageLinks = new PageLinks(response.headers());
 
-            }
+            callback.onResult(starredRepositories, pageLinks.getPrev(), pageLinks.getNext());
+        }, (Throwable t) -> {
+
         });
 
     }
@@ -74,11 +69,9 @@ public class StarredRepositoryDataSource extends PageKeyedDataSource<String, Sta
             next = Integer.valueOf(m.group(1));
         }
 
-        Call<List<StarredRepository>> starredCall = GitfavApplication.githubService.listStarredRepository(this.username, next);
+        Single<Response<List<StarredRepository>>> starredCall = GitfavApplication.githubService.listStarredRepository(this.username, next);
 
-        starredCall.enqueue(new Callback<List<StarredRepository>>() {
-            @Override
-            public void onResponse(Call<List<StarredRepository>> call, Response<List<StarredRepository>> response) {
+        starredCall.subscribe( (Response<List<StarredRepository>> response) -> {
                 if(response.isSuccessful()) {
                     List<StarredRepository> starredRepositories = response.body();
 
@@ -99,12 +92,8 @@ public class StarredRepositoryDataSource extends PageKeyedDataSource<String, Sta
                     PageLinks pageLinks = new PageLinks(response.headers());
                     callback.onResult(starredRepositories, pageLinks.getNext());
                 }
-            }
+            }, (Throwable t) -> {
 
-            @Override
-            public void onFailure(Call<List<StarredRepository>> call, Throwable t) {
-
-            }
-        });
+        } );
     }
 }

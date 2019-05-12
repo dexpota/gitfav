@@ -6,6 +6,7 @@ import com.squareup.moshi.Moshi;
 
 import me.destro.android.libraries.github.GithubService;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class GitfavApplication extends Application {
@@ -22,6 +23,7 @@ public class GitfavApplication extends Application {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build();
 
