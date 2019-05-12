@@ -3,10 +3,15 @@ package me.destro.android.gitfav.features.listing.adapters;
 import androidx.paging.PagedListAdapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,18 +40,16 @@ public class StarredRepositoriesAdapter extends PagedListAdapter<StarredReposito
     }
 
     class StarredRepositoryHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.project_name)
-        TextView projectName;
+
         @BindView(R.id.full_project_name)
         TextView fullProjectName;
         @BindView(R.id.description)
         TextView description;
-        @BindView(R.id.forks_count)
-        TextView forksCount;
         @BindView(R.id.stargazers_count)
         TextView stargazersCount;
-        @BindView(R.id.watchers_count)
-        TextView watchersCount;
+
+        @BindView(R.id.topics)
+        ChipGroup topicsChipGroup;
 
         public StarredRepositoryHolder(@NonNull View itemView) {
             super(itemView);
@@ -54,13 +57,35 @@ public class StarredRepositoriesAdapter extends PagedListAdapter<StarredReposito
         }
 
         void bind(@NonNull StarredRepository starredRepository) {
-            projectName.setText(starredRepository.name);
             fullProjectName.setText(starredRepository.fullName);
             description.setText(starredRepository.description);
-
-            forksCount.setText(String.valueOf(starredRepository.forksCount));
             stargazersCount.setText(String.valueOf(starredRepository.stargazersCount));
-            watchersCount.setText(String.valueOf(starredRepository.watchersCount));
+
+            if (starredRepository.topics.length != 0) {
+                buildTopicsChips(starredRepository.topics);
+                topicsChipGroup.setVisibility(View.VISIBLE);
+            } else {
+                topicsChipGroup.setVisibility(View.GONE);
+            }
+        }
+
+        private void buildTopicsChips(String[] topics) {
+            // Create new child as needed.
+            int childCountBefore = topicsChipGroup.getChildCount();
+            for (int i = 0; i < topics.length - childCountBefore; i++) {
+                topicsChipGroup.addView(new Chip(topicsChipGroup.getContext()));
+            }
+
+
+            for (int i = 0; i < topics.length; i++) {
+                String topic = topics[i];
+                ((Chip)topicsChipGroup.getChildAt(i)).setText(topic);
+            }
+
+            // Hide those not-used chips.
+            for (int i = topics.length; i < topicsChipGroup.getChildCount(); i++) {
+                topicsChipGroup.getChildAt(i).setVisibility(View.GONE);
+            }
         }
     }
 }
