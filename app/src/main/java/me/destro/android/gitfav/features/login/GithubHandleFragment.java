@@ -4,6 +4,8 @@ package me.destro.android.gitfav.features.login;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +15,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.navigation.Navigation;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.annotations.NonNull;
 import me.destro.android.gitfav.R;
+import me.destro.android.gitfav.databinding.FragmentGithubHandleBinding;
 
 
 public class GithubHandleFragment extends Fragment {
 
-    @BindView(R.id.github_handle_continue)
-    Button githubHandleContinue;
+    private Button githubHandleContinue;
+    private TextView githubHandle;
 
-    @BindView(R.id.github_handle)
-    TextView githubHandle;
+    private FragmentGithubHandleBinding binding;
 
     public GithubHandleFragment() {
         // Required empty public constructor
@@ -34,9 +34,11 @@ public class GithubHandleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_github_handle, container, false);
-        ButterKnife.bind(this, root);
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_github_handle, container, false);
+
+        githubHandle = binding.githubHandle;
+        githubHandleContinue = binding.githubHandleContinue;
 
         githubHandleContinue.setOnClickListener(view -> {
             String username = githubHandle.getText().toString();
@@ -45,7 +47,7 @@ public class GithubHandleFragment extends Fragment {
             Navigation.findNavController(view).navigate(action);
         });
 
-        return root;
+        return binding.getRoot();
     }
 
     private void hideSoftKeyBoard(@NonNull Activity activity) {

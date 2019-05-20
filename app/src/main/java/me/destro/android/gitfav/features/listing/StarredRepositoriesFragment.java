@@ -1,5 +1,6 @@
 package me.destro.android.gitfav.features.listing;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
@@ -11,18 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import me.destro.android.gitfav.R;
+import me.destro.android.gitfav.databinding.FragmentStarredRepositoriesBinding;
 import me.destro.android.gitfav.features.listing.adapters.StarredRepositoriesAdapter;
 import me.destro.android.libraries.github.model.StarredRepository;
 
 
 public class StarredRepositoriesFragment extends Fragment {
 
-    @BindView(R.id.starred_repositories)
-    RecyclerView rvStarredRepositories;
+    private FragmentStarredRepositoriesBinding binding;
 
+    private RecyclerView rvStarredRepositories;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,9 +32,9 @@ public class StarredRepositoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_starred_repositories, container, false);
-        ButterKnife.bind(this, root);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_starred_repositories, container, false);
+
+        rvStarredRepositories = binding.starredRepositories;
 
         String username = StarredRepositoriesFragmentArgs.fromBundle(getArguments()).getUsername();
 
@@ -50,6 +50,6 @@ public class StarredRepositoriesFragment extends Fragment {
             }
         });
 
-        return root;
+        return binding.getRoot();
     }
 }

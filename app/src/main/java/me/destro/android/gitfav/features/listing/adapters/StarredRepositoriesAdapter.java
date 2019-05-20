@@ -1,10 +1,10 @@
 package me.destro.android.gitfav.features.listing.adapters;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.paging.PagedListAdapter;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +12,8 @@ import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import me.destro.android.gitfav.R;
+import me.destro.android.gitfav.databinding.ItemGithubRepositoryBinding;
 import me.destro.android.libraries.github.model.StarredRepository;
 import me.destro.android.gitfav.features.listing.paging.StarredRepositoryDiffCallback;
 
@@ -41,19 +39,20 @@ public class StarredRepositoriesAdapter extends PagedListAdapter<StarredReposito
 
     class StarredRepositoryHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.full_project_name)
-        TextView fullProjectName;
-        @BindView(R.id.description)
-        TextView description;
-        @BindView(R.id.stargazers_count)
-        TextView stargazersCount;
+        private ItemGithubRepositoryBinding binding;
 
-        @BindView(R.id.topics)
-        ChipGroup topicsChipGroup;
+        private TextView fullProjectName;
+        private TextView description;
+        private TextView stargazersCount;
+        private ChipGroup topicsChipGroup;
 
         public StarredRepositoryHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            binding = DataBindingUtil.bind(itemView);
+            fullProjectName = binding.fullProjectName;
+            description = binding.description;
+            stargazersCount = binding.stargazersCount;
+            topicsChipGroup = binding.topics;
         }
 
         void bind(@NonNull StarredRepository starredRepository) {
