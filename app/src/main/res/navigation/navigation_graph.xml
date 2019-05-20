@@ -11,6 +11,9 @@
         android:label="fragment_starred_repositories"
         tools:layout="@layout/fragment_starred_repositories">
         <argument android:name="username" app:argType="string"/>
+        <action
+            android:id="@+id/action_starredRepositoriesFragment_to_repositoryDetailFragment"
+            app:destination="@id/repositoryDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/githubHandleFragment"
@@ -21,4 +24,9 @@
             android:id="@+id/openStarredRepositories"
             app:destination="@id/starredRepositoriesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/repositoryDetailFragment"
+        android:name="me.destro.android.gitfav.features.detail.RepositoryDetailFragment"
+        android:label="fragment_repository_detail"
+        tools:layout="@layout/fragment_repository_detail" />
 </navigation>
