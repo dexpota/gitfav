@@ -28,5 +28,12 @@
         android:id="@+id/repositoryDetailFragment"
         android:name="me.destro.android.gitfav.features.detail.RepositoryDetailFragment"
         android:label="fragment_repository_detail"
-        tools:layout="@layout/fragment_repository_detail" />
+        tools:layout="@layout/fragment_repository_detail" >
+        <argument
+            android:name="owner"
+            app:argType="string" />
+        <argument
+            android:name="repository"
+            app:argType="string" />
+    </fragment>
 </navigation>

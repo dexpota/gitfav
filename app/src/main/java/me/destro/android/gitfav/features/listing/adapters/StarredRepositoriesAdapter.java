@@ -19,6 +19,16 @@ import me.destro.android.gitfav.features.listing.paging.StarredRepositoryDiffCal
 
 public class StarredRepositoriesAdapter extends PagedListAdapter<StarredRepository, StarredRepositoriesAdapter.StarredRepositoryHolder> {
 
+    public interface OnStarredRepositoryClickListener {
+        void onRepositoryClicked(StarredRepository starredRepository);
+    }
+
+    public void setOnStarredRepositoryClickListener(OnStarredRepositoryClickListener onRepositoryClickListener) {
+        this.onStarredRepositoryClickListener = onRepositoryClickListener;
+    }
+
+    private OnStarredRepositoryClickListener onStarredRepositoryClickListener;
+
     public StarredRepositoriesAdapter() {
         super(new StarredRepositoryDiffCallback());
     }
@@ -65,6 +75,10 @@ public class StarredRepositoriesAdapter extends PagedListAdapter<StarredReposito
                 topicsChipGroup.setVisibility(View.VISIBLE);
             } else {
                 topicsChipGroup.setVisibility(View.GONE);
+            }
+
+            if (onStarredRepositoryClickListener != null) {
+                binding.getRoot().setOnClickListener((view) -> onStarredRepositoryClickListener.onRepositoryClicked(starredRepository));
             }
         }
 

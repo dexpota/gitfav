@@ -3,6 +3,8 @@ package me.destro.android.gitfav.features.listing;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.paging.PagedList;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -39,6 +41,13 @@ public class StarredRepositoriesFragment extends Fragment {
         String username = StarredRepositoriesFragmentArgs.fromBundle(getArguments()).getUsername();
 
         StarredRepositoriesAdapter mAdapter = new StarredRepositoriesAdapter();
+        mAdapter.setOnStarredRepositoryClickListener((starredRepository) -> {
+            StarredRepositoriesFragmentDirections.ActionStarredRepositoriesFragmentToRepositoryDetailFragment
+                    action = StarredRepositoriesFragmentDirections.actionStarredRepositoriesFragmentToRepositoryDetailFragment(starredRepository.name, starredRepository.owner.getLogin());
+
+            NavController navigation = Navigation.findNavController(binding.getRoot());
+            navigation.navigate(action);
+        });
         rvStarredRepositories.setAdapter(mAdapter);
         rvStarredRepositories.setLayoutManager(new LinearLayoutManager(getContext()));
 
