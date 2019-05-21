@@ -26,9 +26,9 @@ public interface GithubService {
     /**
      * @link https://developer.github.com/v3/repos/#get
      */
-    @GET("/repos/{owner}/{repo}")
+    @GET("/repos/{user}/{repo}")
     @Headers("Accept: application/vnd.github.mercy-preview+json")
-    Single<Response<List<Repository>>> getRepository(@Path("user") String user, @Path("repo") String repository);
+    Single<Response<Repository>> getRepository(@Path("user") String user, @Path("repo") String repository);
 
     @GET("/repos/{user}/{repo}/languages")
     @Headers("Accept: application/vnd.github.mercy-preview+json")
