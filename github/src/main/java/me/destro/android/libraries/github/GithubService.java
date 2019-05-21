@@ -11,13 +11,20 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+
+@SuppressWarnings("unused")
 public interface GithubService {
 
     @GET("users/{user}/starred")
     @Headers("Accept: application/vnd.github.mercy-preview+json")
     Single<Response<List<StarredRepository>>> listStarredRepository(@Path("user") String user, @Query("page") int page);
 
-    @GET("/repos/:owner/:repo/languages")
+    @GET("/repos/{owner}/{repo}/languages")
     @Headers("Accept: application/vnd.github.mercy-preview+json")
     Single<Map<String, Integer>> listRepositoryLanguages(@Path("user") String user, @Path("repo") String repository);
+
+    @GET("/repos/{owner}/{repo}/topics")
+    @Headers("Accept: application/vnd.github.mercy-preview+json")
+    Single<Map<String, Integer>> listRepositoryTopics(@Path("user") String user, @Path("repo") String repository);
+
 }
