@@ -16,6 +16,9 @@ import retrofit2.http.Query;
 @SuppressWarnings("unused")
 public interface GithubService {
 
+    /**
+     * @link https://developer.github.com/v3/activity/starring/#list-repositories-being-starred
+     */
     @GET("users/{user}/starred")
     @Headers("Accept: application/vnd.github.mercy-preview+json")
     Single<Response<List<StarredRepository>>> listStarredRepository(@Path("user") String user, @Query("page") int page);

@@ -2,6 +2,7 @@ package me.destro.android.libraries.github.model;
 
 import com.squareup.moshi.Json;
 
+@SuppressWarnings("unused")
 public class StarredRepository {
     @Json(name = "id")
     public String id;
@@ -21,4 +22,6 @@ public class StarredRepository {
     public int watchersCount;
     @Json(name = "topics")
     public String[] topics;
+    @Json(name = "owner")
+    public Owner owner;
 }
