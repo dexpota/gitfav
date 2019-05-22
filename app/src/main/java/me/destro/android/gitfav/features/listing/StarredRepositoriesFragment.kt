@@ -1,18 +1,15 @@
 package me.destro.android.gitfav.features.listing
 
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.paging.PagedList
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.paging.PagedList
+import androidx.recyclerview.widget.LinearLayoutManager
 import me.destro.android.gitfav.R
 import me.destro.android.gitfav.databinding.FragmentStarredRepositoriesBinding
 import me.destro.android.gitfav.features.listing.adapters.StarredRepositoriesAdapter
@@ -37,12 +34,13 @@ class StarredRepositoriesFragment : Fragment() {
         val username = StarredRepositoriesFragmentArgs.fromBundle(arguments!!).username
 
         val mAdapter = StarredRepositoriesAdapter()
-        mAdapter.setOnStarredRepositoryClickListener { starredRepository ->
+        mAdapter.setOnStarredRepositoryClickListener{ starredRepository ->
             val action = StarredRepositoriesFragmentDirections.actionStarredRepositoriesFragmentToRepositoryDetailFragment(starredRepository.name, starredRepository.owner.login)
 
             val navigation = Navigation.findNavController(binding.root)
             navigation.navigate(action)
         }
+
         rvStarredRepositories.adapter = mAdapter
         rvStarredRepositories.layoutManager = LinearLayoutManager(context)
 
