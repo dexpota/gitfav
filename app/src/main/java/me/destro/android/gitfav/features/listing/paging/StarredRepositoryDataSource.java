@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import io.reactivex.Single;
 import me.destro.android.gitfav.GitfavApplication;
 import me.destro.android.gitfav.MainActivity;
+import me.destro.android.libraries.github.GithubService;
 import me.destro.android.libraries.github.model.StarredRepository;
 import me.destro.android.libraries.github.utilities.PageLinks;
 import me.destro.android.gitfav.utilities.Algorithms;
@@ -21,15 +22,17 @@ import retrofit2.Response;
 public class StarredRepositoryDataSource extends PageKeyedDataSource<String, StarredRepository> {
 
     private String username;
+    private GithubService githubService;
 
-    public StarredRepositoryDataSource(String username) {
+    public StarredRepositoryDataSource(String username, GithubService githubService) {
         this.username = username;
+        this.githubService = githubService;
     }
 
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<String> params, @NonNull LoadInitialCallback<String, StarredRepository> callback) {
-        Single<Response<List<StarredRepository>>> starredCall = GitfavApplication.githubService.listStarredRepository(this.username, 0);
+        Single<Response<List<StarredRepository>>> starredCall = githubService.listStarredRepository(this.username, 0);
 
         // TODO handling this disposable
         starredCall.subscribe((Response<List<StarredRepository>> response) -> {
@@ -69,7 +72,7 @@ public class StarredRepositoryDataSource extends PageKeyedDataSource<String, Sta
             next = Integer.valueOf(m.group(1));
         }
 
-        Single<Response<List<StarredRepository>>> starredCall = GitfavApplication.githubService.listStarredRepository(this.username, next);
+        Single<Response<List<StarredRepository>>> starredCall = githubService.listStarredRepository(this.username, next);
 
         starredCall.subscribe( (Response<List<StarredRepository>> response) -> {
                 if(response.isSuccessful()) {
