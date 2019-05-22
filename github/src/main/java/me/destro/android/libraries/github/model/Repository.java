@@ -3,7 +3,7 @@ package me.destro.android.libraries.github.model;
 import com.squareup.moshi.Json;
 
 @SuppressWarnings("unused")
-public class StarredRepository {
+public class Repository {
     @Json(name = "id")
     public String id;
     @Json(name = "name")
