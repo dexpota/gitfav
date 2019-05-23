@@ -3,6 +3,7 @@ package me.destro.android.gitfav.koin
 import com.squareup.moshi.Moshi
 import me.destro.android.gitfav.features.detail.RepositoryDetailViewModel
 import me.destro.android.gitfav.features.listing.StarredRepositoriesViewModel
+import me.destro.android.gitfav.repository.RemoteRepository
 import me.destro.android.libraries.github.GithubService
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -30,6 +31,8 @@ val koinModules = module {
     single {
         get<Retrofit>().create(GithubService::class.java)
     }
+
+    single { RemoteRepository(get()) }
 
     viewModel { RepositoryDetailViewModel(get()) }
 
