@@ -2,16 +2,31 @@ package me.destro.android.gitfav.repository
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import me.destro.android.gitfav.domain.errors.NetworkDataSourceException
+import me.destro.android.gitfav.data.mapper.asDomainModel
+import me.destro.android.gitfav.domain.model.Project
 import me.destro.android.libraries.github.GithubService
-import me.destro.android.libraries.github.model.Repository
-import retrofit2.Response
 
 @Suppress("unused")
 class RemoteRepository(private val githubService: GithubService) {
 
-    fun getRepository(user: String, repository: String): Single<Response<Repository>> {
+    fun getRepository(user: String, repository: String): Single<Result<Project>> {
         val observable = githubService.getRepository(user, repository)
                 .subscribeOn(Schedulers.io())
+                .map { response ->
+                    if (response.isSuccessful) {
+
+                        val repository = response.body()
+
+                        if (repository != null) {
+                            Result.success(repository.asDomainModel())
+                        }else {
+                            Result.failure(NetworkDataSourceException())
+                        }
+                    }else {
+                        Result.failure(NetworkDataSourceException(response.errorBody()?.string()))
+                    }
+                }
 
         return observable
     }
