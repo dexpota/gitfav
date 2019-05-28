@@ -19,13 +19,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:textSize="@dimen/item_github_secondary_size"
             app:layout_constraintBottom_toTopOf="@+id/description"
-            app:layout_constraintEnd_toStartOf="@+id/stargazers_count"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Full project name" />
+            tools:text="author/project_name" />
 
 
         <TextView
@@ -36,19 +37,18 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/full_project_name"
-            tools:text="Project's description." />
+            tools:text="Project's description, it can go on and on and on." />
 
         <TextView
             android:id="@+id/stargazers_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/full_project_name"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/full_project_name"
-            app:layout_constraintTop_toTopOf="@+id/full_project_name"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
             tools:text="11" />
 
 
@@ -88,6 +88,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="@sample/programming_languages" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/programming_languages" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/programming_languages" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/programming_languages" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/programming_languages" />
         </com.google.android.material.chip.ChipGroup>
 
 
@@ -102,13 +122,55 @@
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@sample/programming_languages" />
+                tools:text="@sample/topics" />
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@sample/programming_languages" />
+                tools:text="@sample/topics" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/topics" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/topics" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/topics" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/topics" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/topics" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@sample/topics" />
         </com.google.android.material.chip.ChipGroup>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_star_border_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/full_project_name"
+            app:layout_constraintEnd_toStartOf="@+id/stargazers_count"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/full_project_name"
+            app:layout_constraintTop_toTopOf="@+id/full_project_name" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

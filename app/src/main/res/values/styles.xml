@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="chipStyle">@style/Chip.Topic</item>
+    </style>
+
+    <!-- Chip style for the topic chip -->
+    <style name="Chip.Topic" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:textAlignment">center</item>
     </style>
 
 </resources>
