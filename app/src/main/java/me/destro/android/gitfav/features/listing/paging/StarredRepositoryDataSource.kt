@@ -1,8 +1,6 @@
 package me.destro.android.gitfav.features.listing.paging
 
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
-import me.destro.android.gitfav.MainActivity
 import me.destro.android.libraries.github.GithubService
 import me.destro.android.libraries.github.model.StarredRepository
 import me.destro.android.libraries.github.utilities.PageLinks
@@ -19,18 +17,10 @@ class StarredRepositoryDataSource(private val username: String, private val gith
         starredCall.subscribe({ response: Response<List<StarredRepository>> ->
             val starredRepositories = response.body()
 
-            Log.d(MainActivity::class.java.name, response.headers().get("Link"))
-
-            for (starredRepository in starredRepositories!!) {
-                Log.d(MainActivity::class.java.name, starredRepository.name)
-                Log.d(MainActivity::class.java.name, starredRepository.fullName)
-
-                starredRepository.topics.forEach { Log.d(MainActivity::class.java.name, "topic: $it") }
-            }
-
             val pageLinks = PageLinks(response.headers())
 
-            callback.onResult(starredRepositories, pageLinks.prev, pageLinks.next)
+            starredRepositories?.let { callback.onResult(starredRepositories, pageLinks.prev, pageLinks.next) }
+
         }, { t: Throwable ->
 
         })
@@ -56,21 +46,9 @@ class StarredRepositoryDataSource(private val username: String, private val gith
             if (response.isSuccessful) {
                 val starredRepositories = response.body()
 
-                Log.d(MainActivity::class.java.name, response.headers().get("Link"))
-
-                for (starredRepository in starredRepositories!!) {
-                    Log.d(MainActivity::class.java.name, starredRepository.name)
-                    Log.d(MainActivity::class.java.name, starredRepository.fullName)
-
-                    starredRepository.topics.forEach { Log.d(MainActivity::class.java.name, "topic: $it") }
-                }
-
-
-                //StarredRepositoriesAdapter adapter = new StarredRepositoriesAdapter(starredRepositories);
-                //rvStarredRepositories.setAdapter(adapter);
-                //rvStarredRepositories.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 val pageLinks = PageLinks(response.headers())
-                callback.onResult(starredRepositories, pageLinks.next)
+
+                starredRepositories?.let { callback.onResult(starredRepositories, pageLinks.next) }
             }
         }, { t: Throwable ->
 
