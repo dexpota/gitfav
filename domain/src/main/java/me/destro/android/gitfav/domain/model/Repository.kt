@@ -1,6 +1,6 @@
 package me.destro.android.gitfav.domain.model
 
-data class Project(
+data class Repository(
         val name: String,
         val owner: String,
         val topics: Array<String>
@@ -9,7 +9,7 @@ data class Project(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Project
+        other as Repository
 
         if (name != other.name) return false
         if (owner != other.owner) return false

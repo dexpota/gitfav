@@ -5,7 +5,7 @@
     tools:context=".features.detail.RepositoryDetailFragment">
 
     <data>
-        <variable name="repository" type="me.destro.android.gitfav.domain.model.Project" />
+        <variable name="repository" type="me.destro.android.gitfav.domain.model.Repository" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

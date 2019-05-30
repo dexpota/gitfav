@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import me.destro.android.gitfav.R
 import me.destro.android.gitfav.databinding.FragmentRepositoryDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import me.destro.android.gitfav.domain.model.Project
 
 class RepositoryDetailFragment : Fragment() {
 
