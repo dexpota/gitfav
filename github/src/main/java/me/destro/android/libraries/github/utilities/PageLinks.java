@@ -1,4 +1,4 @@
-package me.destro.android.gitfav.utilities;
+package me.destro.android.libraries.github.utilities;
 
 import okhttp3.Headers;
 

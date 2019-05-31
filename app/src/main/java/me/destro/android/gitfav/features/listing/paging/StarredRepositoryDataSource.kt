@@ -1,10 +1,9 @@
 package me.destro.android.gitfav.features.listing.paging
 
 import androidx.paging.PageKeyedDataSource
+import me.destro.android.gitfav.data.Paged
 import me.destro.android.gitfav.data.repository.RemoteRepository
 import me.destro.android.gitfav.domain.model.Repository
-import me.destro.android.gitfav.utilities.PageLinks
-import retrofit2.Response
 import java.util.regex.Pattern
 
 class StarredRepositoryDataSource(private val username: String, private val githubService: RemoteRepository) : PageKeyedDataSource<String, Repository>() {
@@ -14,12 +13,16 @@ class StarredRepositoryDataSource(private val username: String, private val gith
         val starredCall = githubService.listStarredRepository(this.username, 0)
 
         // TODO handling this disposable
-        starredCall.subscribe({ response: Response<List<Repository>> ->
-            val starredRepositories = response.body()
+        starredCall.subscribe({ response: Result<Paged<List<Repository>>> ->
+            if (response.isSuccess) {
+                val pagedResponse = response.getOrThrow()
 
-            val pageLinks = PageLinks(response.headers())
+                val next = pagedResponse.next
+                val prev = pagedResponse.previous
+                val starredRepositories = pagedResponse.response
 
-            starredRepositories?.let { callback.onResult(starredRepositories, pageLinks.prev, pageLinks.next) }
+                starredRepositories?.let { callback.onResult(starredRepositories, prev, next) }
+            }
 
         }, { t: Throwable ->
 
@@ -42,13 +45,16 @@ class StarredRepositoryDataSource(private val username: String, private val gith
 
         val starredCall = githubService.listStarredRepository(this.username, next!!)
 
-        starredCall.subscribe({ response: Response<List<Repository>> ->
-            if (response.isSuccessful) {
-                val starredRepositories = response.body()
+        // TODO handling this disposable
+        starredCall.subscribe({ response: Result<Paged<List<Repository>>> ->
+            if (response.isSuccess) {
+                val pagedResponse = response.getOrThrow()
 
-                val pageLinks = PageLinks(response.headers())
+                val next = pagedResponse.next
+                val prev = pagedResponse.previous
+                val starredRepositories = pagedResponse.response
 
-                starredRepositories?.let { callback.onResult(starredRepositories, pageLinks.next) }
+                starredRepositories?.let { callback.onResult(starredRepositories, next) }
             }
         }, { t: Throwable ->
 

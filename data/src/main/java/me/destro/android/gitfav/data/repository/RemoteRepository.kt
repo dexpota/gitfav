@@ -2,10 +2,12 @@ package me.destro.android.gitfav.data.repository
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import me.destro.android.gitfav.data.Paged
 import me.destro.android.gitfav.data.mapper.asDomainModel
 import me.destro.android.gitfav.domain.errors.NetworkDataSourceException
 import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.libraries.github.GithubService
+import me.destro.android.libraries.github.utilities.PageLinks
 import retrofit2.Response
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,7 +16,7 @@ import retrofit2.http.Query
 class RemoteRepository(private val githubService: GithubService) {
 
     fun listStarredRepository(@Path("user") user: String, @Query("page") page: Int):
-            Single<Response<List<Repository>>> {
+            Single<Result<Paged<List<Repository>>>> {
         val observable = githubService.listStarredRepository(user, page)
                 .subscribeOn(Schedulers.io())
                 .map { response ->
@@ -22,13 +24,17 @@ class RemoteRepository(private val githubService: GithubService) {
 
                         val repository = response.body()
 
+                        val pageLinks = PageLinks(response.headers())
+
+
                         if (repository != null) {
-                            Response.success(repository.map { it.asDomainModel() })
+                            val content = Paged(repository.map { it.asDomainModel() }, pageLinks.next, pageLinks.prev)
+                            Result.success(content)
                         }else {
-                            Response.error(response.code(), response.errorBody())
+                            Result.failure(NetworkDataSourceException())
                         }
                     } else {
-                        Response.error(response.code(), response.errorBody())
+                        Result.failure(NetworkDataSourceException())
                     }
                 }
         return observable
