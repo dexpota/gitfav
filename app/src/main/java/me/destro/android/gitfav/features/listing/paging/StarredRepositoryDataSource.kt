@@ -21,10 +21,10 @@ class StarredRepositoryDataSource(private val username: String, private val gith
                 val prev = pagedResponse.previous
                 val starredRepositories = pagedResponse.response
 
-                starredRepositories?.let { callback.onResult(starredRepositories, prev, next) }
+                callback.onResult(starredRepositories, prev, next)
             }
 
-        }, { t: Throwable ->
+        }, {
 
         })
 
@@ -50,13 +50,12 @@ class StarredRepositoryDataSource(private val username: String, private val gith
             if (response.isSuccess) {
                 val pagedResponse = response.getOrThrow()
 
-                val next = pagedResponse.next
-                val prev = pagedResponse.previous
+                val nextLink = pagedResponse.next
                 val starredRepositories = pagedResponse.response
 
-                starredRepositories?.let { callback.onResult(starredRepositories, next) }
+                callback.onResult(starredRepositories, nextLink)
             }
-        }, { t: Throwable ->
+        }, {
 
         })
     }
