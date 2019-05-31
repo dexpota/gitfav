@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/gitfav.iml" filepath="$PROJECT_DIR$/.idea/gitfav.iml" />
       <module fileurl="file://$PROJECT_DIR$/gitfav.iml" filepath="$PROJECT_DIR$/gitfav.iml" />
       <module fileurl="file://$PROJECT_DIR$/github/github.iml" filepath="$PROJECT_DIR$/github/github.iml" />
+      <module fileurl="file://$PROJECT_DIR$/persistence/persistence.iml" filepath="$PROJECT_DIR$/persistence/persistence.iml" />
     </modules>
   </component>
 </project>

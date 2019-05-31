@@ -1,1 +1,1 @@
-include ':app', ':github', ':data'
+include ':app', ':github', ':data', ':persistence'

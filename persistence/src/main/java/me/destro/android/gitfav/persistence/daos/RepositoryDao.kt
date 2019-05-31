@@ -1,10 +1,10 @@
-package me.destro.android.gitfav.data.persistence.daos
+package me.destro.android.gitfav.persistence.daos
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import me.destro.android.gitfav.data.persistence.entities.Repository
+import me.destro.android.gitfav.persistence.entities.Repository
 
 @Dao
 interface RepositoryDao {

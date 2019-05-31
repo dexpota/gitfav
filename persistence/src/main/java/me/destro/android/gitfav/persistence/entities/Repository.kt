@@ -1,4 +1,4 @@
-package me.destro.android.gitfav.data.persistence.entities
+package me.destro.android.gitfav.persistence.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
