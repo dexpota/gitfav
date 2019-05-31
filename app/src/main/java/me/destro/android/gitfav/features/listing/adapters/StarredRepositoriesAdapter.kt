@@ -11,14 +11,14 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import me.destro.android.gitfav.R
 import me.destro.android.gitfav.databinding.ItemGithubRepositoryBinding
+import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.gitfav.features.listing.paging.StarredRepositoryDiffCallback
-import me.destro.android.libraries.github.model.StarredRepository
 
-class StarredRepositoriesAdapter : PagedListAdapter<StarredRepository, StarredRepositoriesAdapter.StarredRepositoryHolder>(StarredRepositoryDiffCallback()) {
+class StarredRepositoriesAdapter : PagedListAdapter<Repository, StarredRepositoriesAdapter.StarredRepositoryHolder>(StarredRepositoryDiffCallback()) {
 
-    private var onStarredRepositoryClickListener: ((StarredRepository) -> Unit)? = null
+    private var onStarredRepositoryClickListener: ((Repository) -> Unit)? = null
 
-    fun setOnStarredRepositoryClickListener(onRepositoryClickListener: (StarredRepository) -> Unit) {
+    fun setOnStarredRepositoryClickListener(onRepositoryClickListener: (Repository) -> Unit) {
         this.onStarredRepositoryClickListener = onRepositoryClickListener
     }
 
@@ -49,10 +49,10 @@ class StarredRepositoriesAdapter : PagedListAdapter<StarredRepository, StarredRe
             topicsChipGroup = binding.topics
         }
 
-        fun bind(starredRepository: StarredRepository) {
-            fullProjectName.text = starredRepository.fullName
+        fun bind(starredRepository: Repository) {
+            fullProjectName.text = starredRepository.name
             description.text = starredRepository.description
-            stargazersCount.text = starredRepository.stargazersCount.toString()
+            stargazersCount.text = starredRepository.starsCount.toString()
 
             if (starredRepository.topics.isNotEmpty()) {
                 buildTopicsChips(starredRepository.topics)

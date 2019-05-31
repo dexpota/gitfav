@@ -6,9 +6,34 @@ import me.destro.android.gitfav.data.mapper.asDomainModel
 import me.destro.android.gitfav.domain.errors.NetworkDataSourceException
 import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.libraries.github.GithubService
+import retrofit2.Response
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 @Suppress("unused")
 class RemoteRepository(private val githubService: GithubService) {
+
+    fun listStarredRepository(@Path("user") user: String, @Query("page") page: Int):
+            Single<Response<List<Repository>>> {
+        val observable = githubService.listStarredRepository(user, page)
+                .subscribeOn(Schedulers.io())
+                .map { response ->
+                    if (response.isSuccessful) {
+
+                        val repository = response.body()
+
+                        if (repository != null) {
+                            Response.success(repository.map { it.asDomainModel() })
+                        }else {
+                            Response.error(response.code(), response.errorBody())
+                        }
+                    } else {
+                        Response.error(response.code(), response.errorBody())
+                    }
+                }
+        return observable
+    }
+
 
     fun getRepository(user: String, repository: String): Single<Result<Repository>> {
         val observable = githubService.getRepository(user, repository)

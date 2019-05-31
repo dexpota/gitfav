@@ -6,11 +6,15 @@ import me.destro.android.libraries.github.model.StarredRepository
 fun StarredRepository.asDomainModel() = me.destro.android.gitfav.domain.model.Repository(
         owner = owner.login,
         name = name,
-        topics = topics
+        topics = topics,
+        description = description,
+        starsCount = stargazersCount
 )
 
 fun Repository.asDomainModel() = me.destro.android.gitfav.domain.model.Repository(
         owner = owner.login,
         name = name,
-        topics = topics
+        topics = topics,
+        description = description,
+        starsCount = stargazersCount
 )

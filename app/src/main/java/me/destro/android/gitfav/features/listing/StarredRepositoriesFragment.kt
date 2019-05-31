@@ -12,8 +12,8 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import me.destro.android.gitfav.R
 import me.destro.android.gitfav.databinding.FragmentStarredRepositoriesBinding
+import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.gitfav.features.listing.adapters.StarredRepositoriesAdapter
-import me.destro.android.libraries.github.model.StarredRepository
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -34,8 +34,8 @@ class StarredRepositoriesFragment : Fragment() {
         val username = StarredRepositoriesFragmentArgs.fromBundle(arguments!!).username
 
         val mAdapter = StarredRepositoriesAdapter()
-        mAdapter.setOnStarredRepositoryClickListener{ starredRepository ->
-            val action = StarredRepositoriesFragmentDirections.actionStarredRepositoriesFragmentToRepositoryDetailFragment(starredRepository.name, starredRepository.owner.login)
+        mAdapter.setOnStarredRepositoryClickListener{ repository ->
+            val action = StarredRepositoriesFragmentDirections.actionStarredRepositoriesFragmentToRepositoryDetailFragment(repository.name, repository.owner)
 
             val navigation = Navigation.findNavController(binding.root)
             navigation.navigate(action)
@@ -44,7 +44,7 @@ class StarredRepositoriesFragment : Fragment() {
         rvStarredRepositories.adapter = mAdapter
         rvStarredRepositories.layoutManager = LinearLayoutManager(context)
 
-        viewModel.getStarredRepositories(username).observe(this, Observer<PagedList<StarredRepository>> { starredRepositories -> mAdapter.submitList(starredRepositories) })
+        viewModel.getStarredRepositories(username).observe(this, Observer<PagedList<Repository>> { starredRepositories -> mAdapter.submitList(starredRepositories) })
 
         return binding!!.root
     }

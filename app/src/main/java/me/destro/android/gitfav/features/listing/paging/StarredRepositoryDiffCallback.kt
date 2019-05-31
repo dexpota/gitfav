@@ -1,19 +1,19 @@
 package me.destro.android.gitfav.features.listing.paging
 
 import androidx.recyclerview.widget.DiffUtil
+import me.destro.android.gitfav.domain.model.Repository
 
-import me.destro.android.libraries.github.model.StarredRepository
 
-class StarredRepositoryDiffCallback : DiffUtil.ItemCallback<StarredRepository>() {
-    override fun areItemsTheSame(oldItem: StarredRepository, newItem: StarredRepository): Boolean {
-        return newItem.id == oldItem.id
+class StarredRepositoryDiffCallback : DiffUtil.ItemCallback<Repository>() {
+    override fun areItemsTheSame(oldItem: Repository, newItem: Repository): Boolean {
+        return newItem.name == oldItem.name
+                && newItem.owner == newItem.owner
     }
 
-    override fun areContentsTheSame(oldItem: StarredRepository, newItem: StarredRepository): Boolean {
+    override fun areContentsTheSame(oldItem: Repository, newItem: Repository): Boolean {
         return oldItem.name == newItem.name &&
-                oldItem.fullName == newItem.fullName &&
+                oldItem.owner == newItem.owner &&
                 oldItem.description == newItem.description &&
-                oldItem.htmlUrl == newItem.htmlUrl &&
                 oldItem.topics.contentEquals(newItem.topics)
     }
 }
