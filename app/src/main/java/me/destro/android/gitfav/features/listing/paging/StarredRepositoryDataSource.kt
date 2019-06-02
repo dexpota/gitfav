@@ -4,7 +4,9 @@ import androidx.paging.PageKeyedDataSource
 import me.destro.android.gitfav.data.Paged
 import me.destro.android.gitfav.data.repository.RemoteRepository
 import me.destro.android.gitfav.domain.model.Repository
+import java.lang.Exception
 import java.util.regex.Pattern
+import com.github.kittinunf.result.Result as Result
 
 class StarredRepositoryDataSource(private val username: String, private val githubService: RemoteRepository) : PageKeyedDataSource<String, Repository>() {
 
@@ -13,16 +15,18 @@ class StarredRepositoryDataSource(private val username: String, private val gith
         val starredCall = githubService.listStarredRepository(this.username, 0)
 
         // TODO handling this disposable
-        starredCall.subscribe({ response: Result<Paged<List<Repository>>> ->
-            if (response.isSuccess) {
-                val pagedResponse = response.getOrThrow()
+        starredCall.subscribe({ response: Result<Paged<List<Repository>>, Exception> ->
+            response.fold({
+                val pagedResponse = it
 
                 val next = pagedResponse.next
                 val prev = pagedResponse.previous
                 val starredRepositories = pagedResponse.response
 
                 callback.onResult(starredRepositories, prev, next)
-            }
+            },{
+
+            })
 
         }, {
 
@@ -46,15 +50,17 @@ class StarredRepositoryDataSource(private val username: String, private val gith
         val starredCall = githubService.listStarredRepository(this.username, next!!)
 
         // TODO handling this disposable
-        starredCall.subscribe({ response: Result<Paged<List<Repository>>> ->
-            if (response.isSuccess) {
-                val pagedResponse = response.getOrThrow()
+        starredCall.subscribe({ response: Result<Paged<List<Repository>>, Exception> ->
+            response.fold( {
+                val pagedResponse = it
 
                 val nextLink = pagedResponse.next
                 val starredRepositories = pagedResponse.response
 
                 callback.onResult(starredRepositories, nextLink)
-            }
+            }, {
+
+            })
         }, {
 
         })

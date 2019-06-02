@@ -27,9 +27,10 @@ class RepositoryDetailFragment : Fragment() {
 
         viewModel.getRepository(args.owner, args.repository)
                 .subscribe { result ->
-                    result.fold(onSuccess = { project ->
+
+                    result.fold( { project ->
                         binding.repository = project
-                    }, onFailure = {
+                    }, {
                         Log.e("Error", "Error")
                     })
                 }
