@@ -8,7 +8,9 @@ fun StarredRepository.asDomainModel() = me.destro.android.gitfav.domain.model.Re
         name = name,
         topics = topics,
         description = description,
-        starsCount = stargazersCount
+        starsCount = stargazersCount,
+        userTags = emptyArray(),
+        languages = emptyArray()
 )
 
 fun Repository.asDomainModel() = me.destro.android.gitfav.domain.model.Repository(
@@ -16,5 +18,7 @@ fun Repository.asDomainModel() = me.destro.android.gitfav.domain.model.Repositor
         name = name,
         topics = topics,
         description = description,
-        starsCount = stargazersCount
+        starsCount = stargazersCount,
+        userTags = emptyArray(),
+        languages = emptyArray()
 )

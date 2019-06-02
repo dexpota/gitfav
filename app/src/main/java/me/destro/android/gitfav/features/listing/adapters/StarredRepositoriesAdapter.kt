@@ -13,6 +13,7 @@ import me.destro.android.gitfav.R
 import me.destro.android.gitfav.databinding.ItemGithubRepositoryBinding
 import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.gitfav.features.listing.paging.StarredRepositoryDiffCallback
+import java.io.IOException
 
 class StarredRepositoriesAdapter : PagedListAdapter<Repository, StarredRepositoriesAdapter.StarredRepositoryHolder>(StarredRepositoryDiffCallback()) {
 
@@ -35,34 +36,56 @@ class StarredRepositoriesAdapter : PagedListAdapter<Repository, StarredRepositor
 
     inner class StarredRepositoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val binding: ItemGithubRepositoryBinding? = DataBindingUtil.bind(itemView)
+        private val binding: ItemGithubRepositoryBinding = DataBindingUtil.bind(itemView)!!
 
         private val fullProjectName: TextView
         private val description: TextView
         private val stargazersCount: TextView
         private val topicsChipGroup: ChipGroup
+        private val languagesChipGroup: ChipGroup
+        private val userTagsChipGroup: ChipGroup
 
         init {
-            fullProjectName = binding!!.fullProjectName
+            fullProjectName = binding.fullProjectName
             description = binding.description
             stargazersCount = binding.stargazersCount
             topicsChipGroup = binding.topics
+            languagesChipGroup = binding.languages
+            userTagsChipGroup = binding.userTags
         }
 
         fun bind(starredRepository: Repository) {
             fullProjectName.text = starredRepository.name
-            description.text = starredRepository.description
+
+            if (starredRepository.description != null) {
+                description.text = starredRepository.description
+            }else {
+                description.visibility = View.GONE
+            }
+
             stargazersCount.text = starredRepository.starsCount.toString()
 
             if (starredRepository.topics.isNotEmpty()) {
                 buildTopicsChips(starredRepository.topics)
                 topicsChipGroup.visibility = View.VISIBLE
-            } else {
+            }else {
                 topicsChipGroup.visibility = View.GONE
             }
 
+            if (starredRepository.languages.isNotEmpty()) {
+                languagesChipGroup.visibility = View.VISIBLE
+            }else {
+                languagesChipGroup.visibility = View.GONE
+            }
+
+            if (starredRepository.userTags.isNotEmpty()) {
+                userTagsChipGroup.visibility = View.VISIBLE
+            }else {
+                userTagsChipGroup.visibility = View.GONE
+            }
+
             if (onStarredRepositoryClickListener != null) {
-                binding!!.root.setOnClickListener { _ -> onStarredRepositoryClickListener?.invoke(starredRepository) }
+                binding.root.setOnClickListener { _ -> onStarredRepositoryClickListener?.invoke(starredRepository) }
             }
         }
 

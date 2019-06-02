@@ -112,7 +112,7 @@
 
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/categories"
+            android:id="@+id/userTags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
