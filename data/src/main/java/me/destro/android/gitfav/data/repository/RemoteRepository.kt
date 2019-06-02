@@ -8,18 +8,16 @@ import me.destro.android.gitfav.domain.errors.NetworkDataSourceException
 import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.libraries.github.GithubService
 import me.destro.android.libraries.github.utilities.PageLinks
-import retrofit2.Response
-import retrofit2.http.Path
-import retrofit2.http.Query
+import java.io.IOException
 import java.lang.Exception
 import com.github.kittinunf.result.Result as Result
 
 @Suppress("unused")
 class RemoteRepository(private val githubService: GithubService) {
 
-    fun listStarredRepository(@Path("user") user: String, @Query("page") page: Int):
+    fun listStarredRepository(user: String, page: Int):
             Single<Result<Paged<List<Repository>>, Exception>> {
-        val observable = githubService.listStarredRepository(user, page)
+        return githubService.listStarredRepository(user, page)
                 .subscribeOn(Schedulers.io())
                 .map { response ->
                     if (response.isSuccessful) {
@@ -33,13 +31,12 @@ class RemoteRepository(private val githubService: GithubService) {
                             val content = Paged(repository.map { it.asDomainModel() }, pageLinks.next, pageLinks.prev)
                             Result.success(content)
                         }else {
-                            Result.error(NetworkDataSourceException() as Exception)
+                            Result.error(NetworkDataSourceException())
                         }
                     } else {
-                        Result.error(NetworkDataSourceException() as Exception)
+                        Result.error(NetworkDataSourceException())
                     }
                 }
-        return observable
     }
 
 
@@ -48,8 +45,8 @@ class RemoteRepository(private val githubService: GithubService) {
     }
 
 
-    fun getRepository(user: String, repository: String): Single<Result<Repository, Exception>> {
-        val observable = githubService.getRepository(user, repository)
+    fun getRepository(user: String, repo: String): Single<Result<Repository, Exception>> {
+        return githubService.getRepository(user, repo)
                 .subscribeOn(Schedulers.io())
                 .map { response ->
                     if (response.isSuccessful) {
@@ -59,14 +56,12 @@ class RemoteRepository(private val githubService: GithubService) {
                         if (repository != null) {
                             Result.success(repository.asDomainModel())
                         }else {
-                            Result.error(NetworkDataSourceException() as Exception)
+                            Result.error(NetworkDataSourceException())
                         }
                     }else {
-                        Result.error(NetworkDataSourceException(response.errorBody()?.string()) as Exception)
+                        Result.error(NetworkDataSourceException(response.errorBody()?.string()))
                     }
                 }
-
-        return observable
     }
 
     fun getRepositoryTopics(user: String, repository: String): Single<Map<String, Int>> {
