@@ -8,6 +8,5 @@ repos:
         description: Use klint to format your kotlin code.
         language: script
         types: [kotlin]
-        always_run: true
         pass_filenames: false
         entry: ./.hooks/klint-format.sh
