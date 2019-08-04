@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./gradlew ktlintFormat && echo True
+./gradlew ktlintFormat
