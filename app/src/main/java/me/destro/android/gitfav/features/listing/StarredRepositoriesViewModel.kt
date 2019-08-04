@@ -9,7 +9,7 @@ import me.destro.android.gitfav.domain.model.Repository
 
 import me.destro.android.gitfav.features.listing.paging.StarredRepositoryFactory
 
-class StarredRepositoriesViewModel(private val remoteRepository: RemoteRepository): ViewModel() {
+class StarredRepositoriesViewModel(private val remoteRepository: RemoteRepository) : ViewModel() {
     private lateinit var mStarredRepository: LiveData<PagedList<Repository>>
 
     fun getStarredRepositories(username: String): LiveData<PagedList<Repository>> {

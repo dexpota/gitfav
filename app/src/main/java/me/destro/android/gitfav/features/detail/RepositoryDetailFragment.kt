@@ -18,17 +18,20 @@ class RepositoryDetailFragment : Fragment() {
 
     private val viewModel by viewModel<RepositoryDetailViewModel>()
 
-    private val args : RepositoryDetailFragmentArgs by navArgs()
+    private val args: RepositoryDetailFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_repository_detail, container, false)
 
         viewModel.getRepository(args.owner, args.repository)
                 .subscribe { result ->
 
-                    result.fold( { project ->
+                    result.fold({ project ->
                         binding.repository = project
                     }, {
                         Log.e("Error", "Error")
@@ -37,5 +40,4 @@ class RepositoryDetailFragment : Fragment() {
 
         return binding.root
     }
-
 }

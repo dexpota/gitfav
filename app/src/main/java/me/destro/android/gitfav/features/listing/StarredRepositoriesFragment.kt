@@ -16,17 +16,17 @@ import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.gitfav.features.listing.adapters.StarredRepositoriesAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class StarredRepositoriesFragment : Fragment() {
 
     private lateinit var binding: FragmentStarredRepositoriesBinding
 
     private val viewModel by viewModel<StarredRepositoriesViewModel>()
 
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_starred_repositories, container, false)
 
         val rvStarredRepositories = binding.starredRepositories
@@ -34,7 +34,7 @@ class StarredRepositoriesFragment : Fragment() {
         val username = StarredRepositoriesFragmentArgs.fromBundle(arguments!!).username
 
         val mAdapter = StarredRepositoriesAdapter()
-        mAdapter.setOnStarredRepositoryClickListener{ repository ->
+        mAdapter.setOnStarredRepositoryClickListener { repository ->
             val action = StarredRepositoriesFragmentDirections.actionStarredRepositoriesFragmentToRepositoryDetailFragment(repository.name, repository.owner)
 
             val navigation = Navigation.findNavController(binding.root)

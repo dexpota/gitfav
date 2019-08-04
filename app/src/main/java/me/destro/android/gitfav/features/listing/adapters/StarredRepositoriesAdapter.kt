@@ -13,7 +13,6 @@ import me.destro.android.gitfav.R
 import me.destro.android.gitfav.databinding.ItemGithubRepositoryBinding
 import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.gitfav.features.listing.paging.StarredRepositoryDiffCallback
-import java.io.IOException
 
 class StarredRepositoriesAdapter : PagedListAdapter<Repository, StarredRepositoriesAdapter.StarredRepositoryHolder>(StarredRepositoryDiffCallback()) {
 
@@ -59,7 +58,7 @@ class StarredRepositoriesAdapter : PagedListAdapter<Repository, StarredRepositor
 
             if (starredRepository.description != null) {
                 description.text = starredRepository.description
-            }else {
+            } else {
                 description.visibility = View.GONE
             }
 
@@ -68,19 +67,19 @@ class StarredRepositoriesAdapter : PagedListAdapter<Repository, StarredRepositor
             if (starredRepository.topics.isNotEmpty()) {
                 buildTopicsChips(starredRepository.topics)
                 topicsChipGroup.visibility = View.VISIBLE
-            }else {
+            } else {
                 topicsChipGroup.visibility = View.GONE
             }
 
             if (starredRepository.languages.isNotEmpty()) {
                 languagesChipGroup.visibility = View.VISIBLE
-            }else {
+            } else {
                 languagesChipGroup.visibility = View.GONE
             }
 
             if (starredRepository.userTags.isNotEmpty()) {
                 userTagsChipGroup.visibility = View.VISIBLE
-            }else {
+            } else {
                 userTagsChipGroup.visibility = View.GONE
             }
 

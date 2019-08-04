@@ -10,7 +10,6 @@ import com.github.kittinunf.result.Result as Result
 
 class StarredRepositoryDataSource(private val username: String, private val githubService: RemoteRepository) : PageKeyedDataSource<String, Repository>() {
 
-
     override fun loadInitial(params: PageKeyedDataSource.LoadInitialParams<String>, callback: PageKeyedDataSource.LoadInitialCallback<String, Repository>) {
         val starredCall = githubService.listStarredRepository(this.username, 0)
 
@@ -24,18 +23,13 @@ class StarredRepositoryDataSource(private val username: String, private val gith
                 val starredRepositories = pagedResponse.response
 
                 callback.onResult(starredRepositories, prev, next)
-            },{
-
+            }, {
             })
-
         }, {
-
         })
-
     }
 
     override fun loadBefore(params: PageKeyedDataSource.LoadParams<String>, callback: PageKeyedDataSource.LoadCallback<String, Repository>) {
-
     }
 
     override fun loadAfter(params: PageKeyedDataSource.LoadParams<String>, callback: PageKeyedDataSource.LoadCallback<String, Repository>) {
@@ -51,7 +45,7 @@ class StarredRepositoryDataSource(private val username: String, private val gith
 
         // TODO handling this disposable
         starredCall.subscribe({ response: Result<Paged<List<Repository>>, Exception> ->
-            response.fold( {
+            response.fold({
                 val pagedResponse = it
 
                 val nextLink = pagedResponse.next
@@ -59,10 +53,8 @@ class StarredRepositoryDataSource(private val username: String, private val gith
 
                 callback.onResult(starredRepositories, nextLink)
             }, {
-
             })
         }, {
-
         })
     }
 }

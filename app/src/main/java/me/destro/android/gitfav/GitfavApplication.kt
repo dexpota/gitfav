@@ -6,7 +6,6 @@ import me.destro.android.gitfav.koin.koinModules
 
 import org.koin.core.context.startKoin
 
-
 @SuppressWarnings("unused")
 class GitfavApplication : Application() {
 
@@ -17,6 +16,4 @@ class GitfavApplication : Application() {
             modules(dataModules.asIterable())
         }
     }
-
-
 }

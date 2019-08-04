@@ -1,13 +1,13 @@
 package me.destro.android.gitfav.domain.model
 
 data class Repository(
-        val name: String,
-        val owner: String,
-        val description: String?,
-        val starsCount: Int,
-        val userTags: Array<String>,
-        val topics: Array<String>,
-        val languages: Array<String>
+    val name: String,
+    val owner: String,
+    val description: String?,
+    val starsCount: Int,
+    val userTags: Array<String>,
+    val topics: Array<String>,
+    val languages: Array<String>
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

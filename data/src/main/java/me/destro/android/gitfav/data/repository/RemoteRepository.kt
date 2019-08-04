@@ -8,7 +8,6 @@ import me.destro.android.gitfav.domain.errors.NetworkDataSourceException
 import me.destro.android.gitfav.domain.model.Repository
 import me.destro.android.libraries.github.GithubService
 import me.destro.android.libraries.github.utilities.PageLinks
-import java.io.IOException
 import java.lang.Exception
 import com.github.kittinunf.result.Result as Result
 
@@ -26,11 +25,10 @@ class RemoteRepository(private val githubService: GithubService) {
 
                         val pageLinks = PageLinks(response.headers())
 
-
                         if (repository != null) {
                             val content = Paged(repository.map { it.asDomainModel() }, pageLinks.next, pageLinks.prev)
                             Result.success(content)
-                        }else {
+                        } else {
                             Result.error(NetworkDataSourceException())
                         }
                     } else {
@@ -39,11 +37,9 @@ class RemoteRepository(private val githubService: GithubService) {
                 }
     }
 
-
-    fun error():Exception {
+    fun error(): Exception {
         return NetworkDataSourceException()
     }
-
 
     fun getRepository(user: String, repo: String): Single<Result<Repository, Exception>> {
         return githubService.getRepository(user, repo)
@@ -55,10 +51,10 @@ class RemoteRepository(private val githubService: GithubService) {
 
                         if (repository != null) {
                             Result.success(repository.asDomainModel())
-                        }else {
+                        } else {
                             Result.error(NetworkDataSourceException())
                         }
-                    }else {
+                    } else {
                         Result.error(NetworkDataSourceException(response.errorBody()?.string()))
                     }
                 }
@@ -67,7 +63,6 @@ class RemoteRepository(private val githubService: GithubService) {
     fun getRepositoryTopics(user: String, repository: String): Single<Map<String, Int>> {
         val observable = githubService.listRepositoryTopics(user, repository)
                 .subscribeOn(Schedulers.io())
-
 
         return observable
     }
@@ -78,5 +73,4 @@ class RemoteRepository(private val githubService: GithubService) {
 
         return observable
     }
-
 }

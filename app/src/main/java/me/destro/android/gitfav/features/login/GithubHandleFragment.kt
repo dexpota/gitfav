@@ -1,6 +1,5 @@
 package me.destro.android.gitfav.features.login
 
-
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
@@ -11,21 +10,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.TextView
 
 import androidx.navigation.Navigation
 import io.reactivex.annotations.NonNull
 import me.destro.android.gitfav.R
 import me.destro.android.gitfav.databinding.FragmentGithubHandleBinding
 
-
 class GithubHandleFragment : Fragment() {
 
     private lateinit var binding: FragmentGithubHandleBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_github_handle, container, false)
 
